@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PPJ.EFCore.Initialize
+namespace SINNIKA.EFCore.Initialize
 {
     public abstract class GenericService<T> : IService<T> where T : class
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PPJ.EFCore.Initialize
+namespace SINNIKA.EFCore.Initialize
 {
     public interface IRepository<T>
     {

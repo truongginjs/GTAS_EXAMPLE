@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BaseService.gRPC;
+﻿using BaseService.gRPC;
 using BaseService.Infrastructure;
+using BaseService.Infrastructure.Repositories;
+using BaseService.Infrastructure.Repositories.Imps;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -23,10 +21,11 @@ namespace BaseService
             services.AddControllers().AddJsonOptions(options =>
             options.JsonSerializerOptions.WriteIndented = true);
 
-             services.AddDbContext<BaseServiceContext>(option => option.UseInMemoryDatabase("InMemory"));
+            services.AddDbContext<BaseServiceContext>(option => option.UseInMemoryDatabase("InMemory"));
 
 
             services.AddGrpc();
+            AddServices(services);
 
             services.AddCors(options =>
             {
@@ -71,6 +70,13 @@ namespace BaseService
             });
 
             // app.AddSeedDataBase();
+        }
+
+
+        private IServiceCollection AddServices(IServiceCollection services)
+        {
+            services.AddScoped<ITestRepository,TestRepository>();
+            return services;
         }
     }
 }

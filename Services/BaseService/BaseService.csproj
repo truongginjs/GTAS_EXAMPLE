@@ -24,4 +24,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\SINNIKA.EFCore.Initialize\SINNIKA.EFCore.Initialize.csproj" />
+  </ItemGroup>
+
 </Project>

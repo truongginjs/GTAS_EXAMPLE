@@ -4,7 +4,7 @@ using Grpc.Core;
 
 namespace BaseService.gRPC
 {
-    public class TestService
+    public class TestService:TestCrud.TestCrudBase
     {
     }
 }

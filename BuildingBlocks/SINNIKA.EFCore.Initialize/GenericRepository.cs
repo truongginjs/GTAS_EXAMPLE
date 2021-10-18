@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PPJ.EFCore.Initialize
+namespace SINNIKA.EFCore.Initialize
 {
     public abstract class GenericRepository<T> : IRepository<T> where T : class
     {
