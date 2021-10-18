@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option csharp_namespace = "BaseService";
+
+package test;
+
+service TestCrud {
+    rpc Gets(Empty) returns (TestsResponse) {
+        
+    }
+    rpc Get(TestFilter) returns (TestResponse) {
+        
+    }
+
+    rpc Save(TestInput) returns (TestResponse) {
+        
+    }
+
+    rpc Create(TestInput) returns (TestResponse) {
+        
+    }
+
+    rpc Update(TestUpdate) returns (TestResponse) {
+        
+    }
+
+    rpc Delete(TestFilter) returns (TestResponse) {
+        
+    }
+}
+// request type
+
+message TestResponse {
+    UUID id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message TestsResponse {
+    repeated TestResponse value = 1;
+}
+
+message TestInput{
+    string name = 2;
+    string description = 3;
+}
+
+message TestUpdate{
+    UUID id = 1;
+    TestInput testInput = 2;
+}
+
+message TestFilter
+{
+    UUID id = 1;
+}
+
+message Empty {
+}
+
+message UUID {
+    string value = 1;
+}
