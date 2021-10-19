@@ -1,4 +1,5 @@
-﻿using BaseService.gRPC;
+﻿using BaseService.GraphQL;
+using BaseService.gRPC;
 using BaseService.Infrastructure;
 using BaseService.Infrastructure.Repositories;
 using BaseService.Infrastructure.Repositories.Imps;
@@ -14,14 +15,19 @@ namespace BaseService
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        private IWebHostEnvironment _env { get; }
+
+        public Startup(IWebHostEnvironment  env)
+        {
+            _env=env;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(options =>
             options.JsonSerializerOptions.WriteIndented = true);
 
-            services.AddDbContext<BaseServiceContext>(option => option.UseInMemoryDatabase("InMemory"));
+            services.AddDbContext<BaseContext>(option => option.UseInMemoryDatabase("InMemory"));
 
 
             services.AddGrpc();
@@ -45,9 +51,9 @@ namespace BaseService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
@@ -69,13 +75,17 @@ namespace BaseService
                 });
             });
 
-            // app.AddSeedDataBase();
+            app.SeedFakeDatabase();
         }
 
 
         private IServiceCollection AddServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MapperProfile).Assembly);
             services.AddScoped<ITestRepository,TestRepository>();
+
+            services.AddGrapQLService(_env);
+
             return services;
         }
     }

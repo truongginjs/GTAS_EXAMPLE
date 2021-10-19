@@ -4,10 +4,10 @@ using System;
 
 namespace BaseService.Infrastructure
 {
-    public class BaseServiceContext : DbContext
+    public class BaseContext : DbContext
     {
         public DbSet<Test> Test { get; set; }
-        public BaseServiceContext(DbContextOptions<BaseServiceContext> options) : base(options)
+        public BaseContext(DbContextOptions<BaseContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

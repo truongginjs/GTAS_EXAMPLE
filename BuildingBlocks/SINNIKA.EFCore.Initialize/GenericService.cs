@@ -14,7 +14,7 @@ namespace SINNIKA.EFCore.Initialize
 
         public virtual T Create(T data) => _repository.Create(data);
 
-        public virtual Task<T> CreateAsync(T data)=> _repository.CreateAsync(data);
+        public virtual Task<T> CreateAsync(T data) => _repository.CreateAsync(data);
 
         public virtual T Delete(object Id) => _repository.Delete(Id);
 
@@ -26,7 +26,11 @@ namespace SINNIKA.EFCore.Initialize
 
         public virtual IEnumerable<T> Gets() => _repository.Gets();
 
-        public virtual Task<IEnumerable<T>> GetsAsync() =>_repository.GetsAsync();
+        public virtual Task<IEnumerable<T>> GetsAsync() => _repository.GetsAsync();
+
+        public TResult Invoke<TResult>(System.Func<IRepository<T>, TResult> func) => func(_repository);
+
+        public Task<TResult> InvokeAsync<TResult>(System.Func<IRepository<T>, Task<TResult>> func) => func(_repository);
 
         public virtual T Update(object Id, T data) => _repository.Update(Id, data);
 

@@ -46,9 +46,6 @@ namespace SINNIKA.EFCore.Initialize
             return t;
         }
 
-        public virtual IEnumerable<T> Find(Func<T, bool> condition) => _table.Where(condition);
-
-        public virtual T FindOne(Func<T, bool> condition) => _table.Where(condition).FirstOrDefault();
 
         public virtual T Get(object Id) => _table.Find(Id);
 
@@ -57,6 +54,13 @@ namespace SINNIKA.EFCore.Initialize
         public virtual IEnumerable<T> Gets() => _table.ToList();
 
         public virtual async Task<IEnumerable<T>> GetsAsync() => await _table.ToListAsync();
+
+        public TResult Invoke<TResult>(Func<DbContext, TResult> func)=>func(_context);
+        public TResult Invoke<TResult>(Func<DbSet<T>, TResult> func)=>func(_table);
+
+        public Task<TResult> InvokeAsync<TResult>(Func<DbContext, Task<TResult>> func)=>func(_context);
+
+        public Task<TResult> InvokeAsync<TResult>(Func<DbSet<T>, Task<TResult>> func)=>func(_table);
 
         public virtual void Save() => _context.SaveChanges();
 
